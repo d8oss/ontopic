@@ -1,0 +1,24 @@
+{% extends "main/base.html" %}
+{% block title %}
+    {% for th in th %}
+        {{ th.title }}
+    {% endfor %}
+{% endblock %}
+
+{% block main %}
+    {% for th in th %}
+        <div class="my-3 p-3 bg-body rounded shadow-sm">
+            <h3 class="pb-2 mb-0">{{ th.title }}</h3>
+
+            <div class="d-flex text-muted pt-3">
+                <p class="pb-3 mb-0 small lh-sm border-bottom">
+                    {{ th.content }}
+                </p>
+            </div>
+
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block left %}
+{% endblock %}
