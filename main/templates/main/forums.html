@@ -6,7 +6,7 @@
 {% block main %}
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item" style="text-decoration: none;"><a href="/">Главная</a></li>
+            <li class="breadcrumb-item"><a href="/" style="text-decoration: none;">Главная</a></li>
             <li class="breadcrumb-item active" aria-current="page">Список разделов</li>
         </ol>
     </nav>
@@ -21,7 +21,7 @@
                     </svg>
                 </div>
 
-                <a style="text-decoration: none; color: #6c757d!important;" href="threads/{{ fr.pk }}/"
+                <a style="text-decoration: none; color: #6c757d!important;" href="id/{{ fr.pk }}/"
                    class="pb-3 mb-0 small lh-sm border-bottom">
                     <strong class="d-block text-gray-dark">
                     {{ fr.name }}

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Forums, Threads, Prefix, Icon
+from .models import Forums, Threads, Prefix, Icon, Post
 
 
 def index(request):
@@ -27,7 +27,9 @@ def forums(request):
 
 def thread(request, th_id):
     th = Threads.objects.filter(pk=th_id)
+    po = Post.objects.filter(thid=th_id)
     context = {
-        'th': th
+        'th': th,
+        'po': po
     }
     return render(request, 'main/threads.html', context)

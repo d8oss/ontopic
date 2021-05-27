@@ -12,7 +12,6 @@ class Threads(models.Model):
     # |---------------------------------------------------------------------------|
 
     title = models.CharField(max_length=50, verbose_name='Заголовок')
-    content = models.TextField(verbose_name='Тема')
     date = models.DateTimeField(auto_now_add=True, db_index=True)
 
     forum = models.ForeignKey('Forums', null=True, on_delete=models.PROTECT, verbose_name='Раздел')
@@ -68,3 +67,17 @@ class Icon(models.Model):
         verbose_name_plural = 'Иконки'
         verbose_name = 'Иконка'
         ordering = ['name']
+
+
+# таблица с постами
+
+class Post(models.Model):
+    date = models.DateTimeField(verbose_name='Время поста', auto_now_add=True)
+    content = models.TextField(verbose_name='Содержание поста')
+    thid = models.IntegerField(verbose_name='Id темы', null=True)
+    like = models.IntegerField(verbose_name='Лайки', null=True)
+
+    class Meta:
+        verbose_name_plural = 'Посты'
+        verbose_name = 'Пост'
+        ordering = ['date']
