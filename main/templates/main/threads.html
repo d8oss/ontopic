@@ -1,4 +1,6 @@
 {% extends "main/base.html" %}
+{% load bbcode_tags %}
+
 {% block title %}
     {% for th in th %}
         {{ th.title }}
@@ -9,8 +11,10 @@
     {% for th in th %}
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/" style="text-decoration: none;">Список тем</a></li>
-                <li class="breadcrumb-item"><a href="/" style="text-decoration: none;">{{ th.forum.name }}</a></li>
+                <li class="breadcrumb-item"><a href="/" style="text-decoration: none;">Главная</a></li>
+                <li class="breadcrumb-item"><a href="/forums" style="text-decoration: none;">Список разделов</a></li>
+                <li class="breadcrumb-item"><a href="/forums/{{ th.forum.pk }}"
+                                               style="text-decoration: none;">{{ th.forum.name }}</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{ th.title }}</li>
             </ol>
         </nav>
@@ -18,36 +22,31 @@
               integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
               crossorigin="anonymous">
         {% for po in po %}
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="media g-mb-30 media-comment">
-                        <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"
-                             src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Image Description">
-                        <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
-                            <div class="g-mb-15">
-                                <h5 class="h5 g-color-gray-dark-v1 mb-0">John Doe</h5>
-                                <span class="g-color-gray-dark-v4 g-font-size-12">{{ po.date }}</span>
-                            </div>
-
-                            <p>{{ po.content }}</p>
-
-
-                            <ul class="list-inline d-sm-flex my-0">
-                                <li class="list-inline-item g-mr-20">
-                                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover no-dekor" href="/like/post/{{ po.pk }}">
-                                        <i class="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i>
-                                        {{ po.like }}
-                                    </a>
-                                </li>
-                                <li class="list-inline-item ml-auto">
-                                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover no-dekor" href="#!">
-                                        <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3"></i>
-                                        Ответить
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+            <div class="row" id="{{ po.pk }}">
+                <div class="my-3 p-3 bg-body rounded shadow-sm">
+                    <div class="g-mb-15">
+                        <h5 class="h5 g-color-gray-dark-v1 mb-0">John Doe</h5>
+                        <span class="g-color-gray-dark-v4 g-font-size-12">{{ po.date }}</span> <a title="Пожаловаться на пост {{ po.pk }}" href="/war/{{ po.pk }}" class="bi bi-shield-exclamation"></a>
                     </div>
+
+                    <p>{% bbcode po.content %}</p>
+
+
+                    <ul class="list-inline d-sm-flex my-0">
+                        <li class="list-inline-item g-mr-20">
+                            <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover n o-dekor"
+                               href="/like/{{ po.pk }}">
+                                <i class="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i>
+                                {{ po.like }}
+                            </a>
+                        </li>
+                        <li class="list-inline-item ml-auto">
+                            <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover no-dekor" href="#!">
+                                <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3"></i>
+                                Ответить
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         {% endfor %}

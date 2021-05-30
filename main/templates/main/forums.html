@@ -15,22 +15,19 @@
         {% for fr in fr %}
             <div class="d-flex text-muted pt-3">
                 <div class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="50" height="50">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
-                         class="bi bi-code-slash" viewBox="0 0 16 16">
-                        <path d="{{ fr.icon.svg }}"></path>
-                    </svg>
+                    <i style="font-size: 30px;" class="{{ fr.icon.svg }}"></i>
                 </div>
 
-                <a style="text-decoration: none; color: #6c757d!important;" href="id/{{ fr.pk }}/"
+                <a style="text-decoration: none; color: #6c757d!important;" href="{{ fr.pk }}/"
                    class="pb-3 mb-0 small lh-sm border-bottom">
                     <strong class="d-block text-gray-dark">
-                    {{ fr.name }}
+                        {{ fr.name }}
                     </strong>
                     {{ fr.desc }}
                 </a>
             </div>
-            </div>
         {% endfor %}
+     </div>
 {% endblock %}
 
 {% block left %}

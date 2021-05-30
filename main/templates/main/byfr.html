@@ -1,0 +1,37 @@
+{% extends "main/base.html" %}
+{% block title %}
+    {% for fr in fr %}{{ fr.name }}{% endfor %}
+{% endblock %}
+
+{% block main %}
+    {% for fr in fr %}
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/" style="text-decoration: none;">Главная</a></li>
+                <li class="breadcrumb-item"><a href="/forums" style="text-decoration: none;">Список разделов</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ fr.name }}</li>
+            </ol>
+        </nav>
+        <div class="my-3 p-3 bg-body rounded shadow-sm">
+        <h6 class="pb-2 mb-0">{{ fr.name }}</h6>
+        {% for th in th %}
+            <div class="d-flex text-muted pt-3">
+                <div class="bd-placeholder-img flex-shrink-0 me-2 rounded">
+                    <i style="font-size: 30px;" class="{{ th.forum.icon.svg }}"></i>
+                </div>
+
+                <div href="threads/{{ th.pk }}/"
+                   class="pb-3 mb-0 small lh-sm border-bottom">
+                    <strong class="d-block text-gray-dark"><span
+                            class="badge bg-{{ th.prefix.color }}">{{ th.prefix.name }}</span> <a href="/threads/{{ th.pk }}" style="text-decoration: none; color: #6c757d!important;">{{ th.title }}</a>
+                    </strong>
+                    <a style="text-decoration: none; color: #6c757d!important;" href="/forums/{{ th.forum.pk }}">{{ th.forum.name }}</a> | @demon | {{ th.date }}
+                </div>
+            </div>
+        {% endfor %}
+    {% endfor %}
+</div>
+{% endblock %}
+{% block left %}
+<a href="create" type="button" class="btn btn-outline-secondary"><i class="bi bi-plus-square"></i> Новая тема</a>
+{% endblock %}

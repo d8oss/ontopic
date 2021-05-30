@@ -33,3 +33,13 @@ def thread(request, th_id):
         'po': po
     }
     return render(request, 'main/threads.html', context)
+
+
+def forum(request, fr_id):
+    fr = Forums.objects.filter(pk=fr_id)
+    th = Threads.objects.filter(forum=fr_id)
+    context = {
+        'fr': fr,
+        'th': th
+    }
+    return render(request, 'main/byfr.html', context)
