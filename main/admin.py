@@ -11,9 +11,13 @@ class PoAdmin(admin.ModelAdmin):
     list_display = ('content', 'date', 'like', 'thid')  # порядок
 
 
+class FrAdmin(admin.ModelAdmin):
+    list_display = ('name', 'desc', 'icon')
+
+
 # регистрация таблиц в админке сайта
 admin.site.register(Threads, ThAdmin)
-admin.site.register(Forums)
+admin.site.register(Forums, FrAdmin)
 admin.site.register(Prefix)
 admin.site.register(Icon)
 admin.site.register(Post, PoAdmin)

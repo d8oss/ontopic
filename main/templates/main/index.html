@@ -15,7 +15,7 @@
                 <div href="threads/{{ th.pk }}/"
                    class="pb-3 mb-0 small lh-sm border-bottom">
                     <strong class="d-block text-gray-dark"><span
-                            class="badge bg-{{ th.prefix.color }}">{{ th.prefix.name }}</span> <a href="/threads/{{ th.pk }}" style="text-decoration: none; color: #6c757d!important;">{{ th.title }}</a>
+                            class="badge bg-{{ th.prefix.color }}"><i class="{{ th.prefix.icon.svg }}"></i> {{ th.prefix.name }}</span> <a href="/threads/{{ th.pk }}" style="text-decoration: none; color: #6c757d!important;">{{ th.title }}</a>
                         <div class="spinner-grow" role="status" style="width: 1rem; height: 1rem;">
                         </div>
                     </strong>

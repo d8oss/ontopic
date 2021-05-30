@@ -21,11 +21,14 @@
                 </div>
 
                 <div href="threads/{{ th.pk }}/"
-                   class="pb-3 mb-0 small lh-sm border-bottom">
+                     class="pb-3 mb-0 small lh-sm border-bottom">
                     <strong class="d-block text-gray-dark"><span
-                            class="badge bg-{{ th.prefix.color }}">{{ th.prefix.name }}</span> <a href="/threads/{{ th.pk }}" style="text-decoration: none; color: #6c757d!important;">{{ th.title }}</a>
+                            class="badge bg-{{ th.prefix.color }}"><i class="{{ th.prefix.icon.svg }}"></i>{{ th.prefix.name }}</span> <a
+                            href="/threads/{{ th.pk }}"
+                            style="text-decoration: none; color: #6c757d!important;">{{ th.title }}</a>
                     </strong>
-                    <a style="text-decoration: none; color: #6c757d!important;" href="/forums/{{ th.forum.pk }}">{{ th.forum.name }}</a> | @demon | {{ th.date }}
+                    <a style="text-decoration: none; color: #6c757d!important;"
+                       href="/forums/{{ th.forum.pk }}">{{ th.forum.name }}</a> | @demon | {{ th.date }}
                 </div>
             </div>
         {% endfor %}
@@ -33,5 +36,5 @@
 </div>
 {% endblock %}
 {% block left %}
-<a href="create" type="button" class="btn btn-outline-secondary"><i class="bi bi-plus-square"></i> Новая тема</a>
+    <a href="create" type="button" class="btn btn-outline-secondary"><i class="bi bi-pen"></i> Новая тема</a>
 {% endblock %}

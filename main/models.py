@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 
 # таблица с темами на форуме
@@ -44,6 +45,7 @@ class Forums(models.Model):
 class Prefix(models.Model):
     name = models.CharField(max_length=50, verbose_name='Содержание префикса')
     color = models.CharField(max_length=100, verbose_name='Bootstrap цвет')
+    icon = models.ForeignKey('Icon', null=True, blank=True, on_delete=models.PROTECT, verbose_name='Иконка')
 
     def __str__(self):
         return self.name

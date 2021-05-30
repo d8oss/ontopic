@@ -1,0 +1,34 @@
+{% extends "main/base.html" %}
+
+{% block title %}Авторизация{% endblock %}
+{% block main %}
+    <div class="my-3 p-3 bg-body rounded shadow-sm">
+        {% if form.errors %}
+            <h6 class="pb-2 mb-0">Неверный логин или пароль</h6>
+        {% endif %}
+
+        {% if next %}
+            {% if user.is_authenticated %}
+                <p>Your account doesn't have access to this page. To proceed,
+                    please login with an account that has access.</p>
+            {% else %}
+                <p>Please login to see this page.</p>
+            {% endif %}
+        {% endif %}
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+
+            <label for="exampleInputEmail1" class="form-label">{{ form.username.label_tag }}</label>
+            <br>
+            {{ form.username }}
+            <br>
+            <label for="exampleInputEmail1" class="form-label">{{ form.password.label_tag }}</label>
+            <br>
+            <td>{{ form.password }}</td>
+            <br>
+            <br>
+            <button type="submit" class="btn btn-primary">Войти</button>
+            <input type="hidden" name="next" value="{{ next }}"/>
+        </form>
+    </div>
+{% endblock %}
