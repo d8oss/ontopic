@@ -1,0 +1,84 @@
+{% extends "main/base.html" %}
+{% block title %}
+
+    {% for fr in fr %}
+        Создать тему в разделе {{ fr.name }}
+    {% endfor %}
+{% endblock %}
+
+{% block main %}
+    {% for fr in fr %}
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/" style="text-decoration: none;">Главная</a></li>
+                <li class="breadcrumb-item"><a href="/forums" style="text-decoration: none;">Список разделов</a></li>
+                <li class="breadcrumb-item"><a href="/forums/{{ fr.pk }}"
+                                               style="text-decoration: none;">{{ fr.name }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Создать тему</li>
+            </ol>
+        </nav>
+        <div class="my-3 p-3 bg-body rounded shadow-sm">
+            <form action="#" method="post">
+                {% csrf_token %}
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        (function ($) {
+                            $.fn.wrapSelected = function (open, close) {
+                                return this.each(function () {
+                                    var textarea = $(this);
+                                    var value = textarea.val();
+                                    var start = textarea[0].selectionStart;
+                                    var end = textarea[0].selectionEnd;
+                                    textarea.val(
+                                        value.substr(0, start) +
+                                        open + value.substring(start, end) + close +
+                                        value.substring(end, value.length)
+                                    );
+                                });
+                            };
+                        })(jQuery);
+                        $("#code").click(function () {
+                            $("textarea#myTextArea").wrapSelected("[code]", "[/code]");
+                        });
+                        $("#italic").click(function () {
+                            $("textarea#myTextArea").wrapSelected("[i]", "[/i]");
+                        });
+                        $("#bold").click(function () {
+                            $("textarea#myTextArea").wrapSelected("[b]", "[/b]");
+                        });
+                        $("#strikethrough").click(function () {
+                            $("textarea#myTextArea").wrapSelected("[s]", "[/s]");
+                        });
+                        $("#underline").click(function () {
+                            $("textarea#myTextArea").wrapSelected("[u]", "[/u]");
+                        });
+                        $("#droplet").click(function () {
+                            $("textarea#myTextArea").wrapSelected("[color=цвет]", "[/color]");
+                        });
+                        $("#image").click(function () {
+                            $("textarea#myTextArea").wrapSelected("[img] ссылка на картинку ", "[/img]");
+                        });
+                    });
+                </script>
+                <div class="mb-3">
+                    <input name="title" required type="text" class="form-control" id="exampleFormControlInput1"
+                           placeholder="Заголовок темы">
+                </div>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button id="code" type="button" class="btn btn-outline-secondary btn-sm"><i class="bi bi-code-slash"></i></button>
+                        <button id="italic" type="button" class="btn btn-outline-secondary btn-sm"><i class="bi bi-type-italic"></i></button>
+                        <button id="bold" type="button" class="btn btn-outline-secondary btn-sm"><i class="bi bi-type-bold"></i></button>
+                        <button id="strikethrough" type="button" class="btn btn-outline-secondary btn-sm"><i class="bi bi-type-strikethrough"></i></button>
+                        <button id="underline" type="button" class="btn btn-outline-secondary btn-sm"><i class="bi bi-type-underline"></i></button>
+                        <button id="droplet" type="button" class="btn btn-outline-secondary btn-sm"><i class="bi bi-palette"></i></button>
+                        <button id="image" type="button" class="btn btn-outline-secondary btn-sm"><i class="bi bi-card-image"></i></button>
+                    </div>
+                <div class="mb-3">
+                    <textarea name="content" required class="form-control" id="myTextArea" rows="6"
+                              placeholder="Содержание темы"></textarea>
+                </div>
+                <button class="btn btn-secondary" type="submit"><i class="bi bi-pen"></i> Опубликовать</button>
+            </form>
+        </div>
+    {% endfor %}
+{% endblock %}

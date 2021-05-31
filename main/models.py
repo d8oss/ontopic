@@ -1,5 +1,22 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
+
+
+# таблица с пользователями
+class Users(models.Model):
+    user = models.OneToOneField(User, on_delete=models.PROTECT)
+    like = models.IntegerField(verbose_name='Симпатии', default=0)
+    date = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Дата регистрации')
+    com = models.BooleanField(default=False, verbose_name='Администратор форума?')
+    color = models.CharField(default='#58595B', verbose_name='HEX цвет ника', max_length=20)
+    stat = models.CharField(null=True, blank=True, verbose_name='Статус пользователя', max_length=70)
+    telegram = models.CharField(null=True, blank=True, verbose_name='Телеграмм пользователя', max_length=80)
+    vk = models.CharField(null=True, blank=True, verbose_name='Вк пользователя', max_length=80)
+    discord = models.CharField(null=True, blank=True, verbose_name='Дискорд пользователя', max_length=80)
+
+    class Meta:
+        verbose_name_plural = 'Участники'
+        verbose_name = 'Участник'
 
 
 # таблица с темами на форуме
@@ -14,6 +31,8 @@ class Threads(models.Model):
 
     title = models.CharField(max_length=50, verbose_name='Заголовок')
     date = models.DateTimeField(auto_now_add=True, db_index=True)
+    user = models.CharField(max_length=100, verbose_name='Создатель темы', null=True, blank=True)
+    key = models.CharField(max_length=100, verbose_name='Уникальный идентификатор', null=True, blank=True)
 
     forum = models.ForeignKey('Forums', null=True, on_delete=models.PROTECT, verbose_name='Раздел')
     prefix = models.ForeignKey('Prefix', null=True, blank=True, on_delete=models.PROTECT, verbose_name='Префикс')
@@ -77,7 +96,8 @@ class Post(models.Model):
     date = models.DateTimeField(verbose_name='Время поста', auto_now_add=True)
     content = models.TextField(verbose_name='Содержание поста')
     thid = models.IntegerField(verbose_name='Id темы', null=True)
-    like = models.IntegerField(verbose_name='Лайки', null=True)
+    like = models.IntegerField(verbose_name='Лайки', null=True, default=0)
+    user = models.CharField(max_length=800, null=True, blank=True)
 
     class Meta:
         verbose_name_plural = 'Посты'

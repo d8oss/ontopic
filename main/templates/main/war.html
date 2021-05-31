@@ -1,0 +1,25 @@
+{% extends "main/base.html" %}
+{% load bbcode_tags %}
+
+{% block title %}
+    Жалоба на пост
+{% endblock %}
+
+{% block main %}
+    {% for ps in ps %}
+        <div class="my-3 p-3 bg-body rounded shadow-sm">
+            <form action="#" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <textarea name="war" required class="form-control" rows="6"
+                              placeholder="Причина жалобы"></textarea>
+                </div>
+                <button class="btn btn-secondary" type="submit"><i class="bi bi-pen"></i> Отправить</button>
+            </form>
+            <br>
+            <blockquote class="blockquote">
+                <footer class="blockquote-footer">{% bbcode ps.content %}</footer>
+            </blockquote>
+        </div>
+    {% endfor %}
+{% endblock %}

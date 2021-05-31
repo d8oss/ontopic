@@ -25,8 +25,11 @@
             <div class="row" id="{{ po.pk }}">
                 <div class="my-3 p-3 bg-body rounded shadow-sm">
                     <div class="g-mb-15">
-                        <h5 class="h5 g-color-gray-dark-v1 mb-0">John Doe</h5>
-                        <span class="g-color-gray-dark-v4 g-font-size-12">{{ po.date }}</span> <a title="Пожаловаться на пост {{ po.pk }}" href="/war/{{ po.pk }}" class="bi bi-shield-exclamation"></a>
+                        <a class="h5 g-color-gray-dark-v1 mb-0 no-dekor text-dark">{{ po.user }}</a>
+                        <br>
+                        <span class="g-color-gray-dark-v4 g-font-size-12">{{ po.date }}</span> <a
+                            title="Пожаловаться на пост {{ po.pk }}" href="/war/{{ po.pk }}"
+                            class="bi bi-shield-exclamation"></a>
                     </div>
 
                     <p>{% bbcode po.content %}</p>
@@ -34,7 +37,7 @@
 
                     <ul class="list-inline d-sm-flex my-0">
                         <li class="list-inline-item g-mr-20">
-                            <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover n o-dekor"
+                            <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover no-dekor"
                                href="/like/{{ po.pk }}">
                                 <i class="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i>
                                 {{ po.like }}
@@ -50,6 +53,20 @@
                 </div>
             </div>
         {% endfor %}
+        {% if user.is_authenticated %}
+            <form action="/comment/{{ th.pk }}/" method="post">
+                {% csrf_token %}
+
+                <div class="input-group mb-3">
+                <textarea name="content" type="text" class="form-control" placeholder="Ваши мысли..."
+                          aria-label="Username"
+                          aria-describedby="basic-addon1"></textarea>
+                    <button type="submit" class="btn btn-outline-secondary">Отправить</button>
+                </div>
+            </form>
+        {% else %}
+            <p>Вы должны авторизироваться, чтобы комментировать эту тему.</p>
+        {% endif %}
     {% endfor %}
 {% endblock %}
 
