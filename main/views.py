@@ -144,7 +144,7 @@ def like(request, post_id):
     posts = Post.objects.get(pk=post_id)
     posts.like += 1
     posts.save()
-    return HttpResponse('Ок')
+    return redirect('/')
 
 
 def reg(request):
