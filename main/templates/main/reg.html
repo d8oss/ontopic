@@ -1,0 +1,16 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block main %}
+    <h2>Регистрация</h2>
+{% if user.is_authenticated %}
+    Вы уже авторизированы
+   {% else %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Зарегистирироваться</button>
+    </form>
+    {% endif %}
+{% endblock %}

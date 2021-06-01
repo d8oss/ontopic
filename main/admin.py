@@ -4,7 +4,7 @@ from .models import Threads, Forums, Prefix, Icon, Post, Users
 
 # коректное отображение таблицы Threads
 class ThAdmin(admin.ModelAdmin):
-    list_display = ('title', 'forum', 'date', 'prefix', 'pk')  # порядок
+    list_display = ('title', 'forum', 'date', 'prefix', 'pk', 'user')  # порядок
 
 
 class PoAdmin(admin.ModelAdmin):

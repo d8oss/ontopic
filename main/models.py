@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 # таблица с пользователями
 class Users(models.Model):
-    user = models.OneToOneField(User, on_delete=models.PROTECT)
+    user = models.CharField(verbose_name='Ник', max_length=900)
     like = models.IntegerField(verbose_name='Симпатии', default=0)
     date = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Дата регистрации')
     com = models.BooleanField(default=False, verbose_name='Администратор форума?')
@@ -14,9 +14,13 @@ class Users(models.Model):
     vk = models.CharField(null=True, blank=True, verbose_name='Вк пользователя', max_length=80)
     discord = models.CharField(null=True, blank=True, verbose_name='Дискорд пользователя', max_length=80)
 
+    def __str__(self):
+        return self.user
+
     class Meta:
         verbose_name_plural = 'Участники'
         verbose_name = 'Участник'
+        ordering = ['-date']
 
 
 # таблица с темами на форуме
@@ -31,7 +35,7 @@ class Threads(models.Model):
 
     title = models.CharField(max_length=50, verbose_name='Заголовок')
     date = models.DateTimeField(auto_now_add=True, db_index=True)
-    user = models.CharField(max_length=100, verbose_name='Создатель темы', null=True, blank=True)
+    user = models.ForeignKey('Users', null=True, blank=True, on_delete=models.PROTECT, verbose_name='Создатель темы')
     key = models.CharField(max_length=100, verbose_name='Уникальный идентификатор', null=True, blank=True)
 
     forum = models.ForeignKey('Forums', null=True, on_delete=models.PROTECT, verbose_name='Раздел')
@@ -97,7 +101,7 @@ class Post(models.Model):
     content = models.TextField(verbose_name='Содержание поста')
     thid = models.IntegerField(verbose_name='Id темы', null=True)
     like = models.IntegerField(verbose_name='Лайки', null=True, default=0)
-    user = models.CharField(max_length=800, null=True, blank=True)
+    user = models.ForeignKey('Users', null=True, blank=True, on_delete=models.PROTECT, verbose_name='Создатель поста')
 
     class Meta:
         verbose_name_plural = 'Посты'

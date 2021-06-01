@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import index, forums, thread, forum, com, create, war
+from .views import index, forums, thread, forum, com, create, war, user, like, reg
 
 urlpatterns = [
     path('', index),
@@ -9,5 +9,8 @@ urlpatterns = [
     path('forums/<int:fr_id>/', forum),
     path('forums/<int:fr_id>/create/', create),
     path('war/<int:ps_id>/', war),
+    path('user/<str:us_nik>/', user),
+    path('like/<int:post_id>/', like),
+    path('accounts/register', reg),
     path('accounts/', include('django.contrib.auth.urls')),
 ]

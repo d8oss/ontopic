@@ -20,7 +20,10 @@
                             style="text-decoration: none; color: #6c757d!important;">{{ th.title }}</a>
                     </strong>
                     <a style="text-decoration: none; color: #6c757d!important;"
-                       href="/forums/{{ th.forum.pk }}">{{ th.forum.name }}</a> | @{{ th.user }} | {{ th.date }}
+                       href="/forums/{{ th.forum.pk }}">{{ th.forum.name }}</a> | <a href="/user/{{ th.user }}"
+                                                                                     class="no-dekor"
+                                                                                     style="color: {{ th.user.color }}">{{ th.user }}</a>
+                    | {{ th.date }}
                 </div>
             </div>
         {% endfor %}
@@ -30,50 +33,16 @@
 {% block left %}
     <div class="my-3 p-3 bg-body shadow-sm">
         <h6 class="card-title">Новые пользователи:</h6>
+        {% for us in us %}
         <div class="d-flex text-muted pt-3">
-            <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32"
-                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32"
-                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-                <rect width="100%" height="100%" fill="red"></rect>
-            </svg>
 
             <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
                 <div class="d-flex justify-content-between">
-                    <strong class="text-gray-dark">MACLO</strong>
-                    <a href="#"></a>
+                    <a class="no-dekor" href="user/{{ us.user }}/" style="color: {{ us.color }}"><strong>{{ us.user }}</strong></a>
                 </div>
-                <span class="d-block">только что</span>
+                <span class="d-block">{{ us.date }}</span>
             </div>
         </div>
-        <div class="d-flex text-muted pt-3">
-            <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32"
-                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32"
-                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-                <rect width="100%" height="100%" fill="blue"></rect>
-            </svg>
-
-            <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
-                <div class="d-flex justify-content-between">
-                    <strong class="text-gray-dark">Эксперт</strong>
-                    <a href="#"></a>
-                </div>
-                <span class="d-block">только что</span>
-            </div>
-        </div>
-        <div class="d-flex text-muted pt-3">
-            <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32"
-                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32"
-                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-                <rect width="100%" height="100%" fill="green"></rect>
-            </svg>
-
-            <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
-                <div class="d-flex justify-content-between">
-                    <strong class="text-gray-dark">demon</strong>
-                    <a href="#"></a>
-                </div>
-                <span class="d-block">минуту назад</span>
-            </div>
-        </div>
+    {% endfor %}
     </div>
 {% endblock %}
